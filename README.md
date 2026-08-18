@@ -138,10 +138,11 @@ expands after the first anchored tool call.
 
 本仓库是 AI 辅助开发的作品。主要开发工作由 DeepSeek Harness 上的 AI 代理完成,人类协作者提供需求描述、设计方向和质量审查。
 
-**本项目直接衍生自以下两个开源库,没有它们就没有本项目:**
+**本项目直接衍生自以下三个开源库,没有它们就没有本项目:**
 
 - **[dsh-web-ui](https://github.com/zhu1090093659/dsh-web-ui)** — DSH Web GUI 插件全家桶,本项目的 plugin 架构、cordis 配置结构和 DSH 集成模式完全来自此库。本项目本质上是 dsh-web-ui 生态中的一个 preset 包。
-- **[oh-we-need](https://github.com/scp3500/oh-we-need)** — DeepSeek V4 特化思维链引导规范,本项目的两阶段锚定机制和 Code Mode 晋升逻辑直接继承自 oh-we-need 的 `we need to` 句式思维链规范。
+- **[dsh-gitbash-preset](https://github.com/liceses/dsh-gitbash-preset)** — Windows 上 Git Bash 持久化 shell 的实现来源,本 preset 的 bash 工具直接继承自此项目的实现。
+- **[oh-we-need](https://github.com/scp3500/oh-we-need)** — DeepSeek V4 特化思维链引导规范,本 preset 二阶段注入的提示词采用了 oh-we-need 优化的性能提升提示词。
 
 本项目的代码、文档和配置均由 AI 生成和整理,但所有创意决策、架构设计和质量保证均由人类协作者主导。
 
@@ -153,11 +154,12 @@ This repository is an AI-assisted creation. The main development work was
 completed by AI agents running on DeepSeek Harness, with human collaborators
 providing requirement descriptions, design direction, and quality review.
 
-**This project is directly derived from the following two open-source
+**This project is directly derived from the following three open-source
 repositories. Without them, this project would not exist:**
 
 - **[dsh-web-ui](https://github.com/zhu1090093659/dsh-web-ui)** — DSH Web GUI plugin suite. The plugin architecture, cordis configuration structure, and DSH integration patterns of this project come entirely from this repository. This project is essentially a preset package within the dsh-web-ui ecosystem.
-- **[oh-we-need](https://github.com/scp3500/oh-we-need)** — DeepSeek V4 specialized reasoning chain guidance spec. The two-phase anchor mechanism and Code Mode promotion logic of this project are directly inherited from oh-we-need's `we need to` sentence pattern reasoning chain specification.
+- **[dsh-gitbash-preset](https://github.com/liceses/dsh-gitbash-preset)** — The implementation source of persistent Git Bash shell on Windows. The bash tool of this preset is directly inherited from this project.
+- **[oh-we-need](https://github.com/scp3500/oh-we-need)** — DeepSeek V4 specialized reasoning chain guidance spec. The prompt injected in the second stage of this preset adopts the performance-boosting prompt optimized by oh-we-need.
 
 The code, documentation, and configuration of this project were all generated
 and organized by AI, but all creative decisions, architecture design, and
