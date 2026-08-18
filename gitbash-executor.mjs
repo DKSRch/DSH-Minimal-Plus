@@ -65,8 +65,11 @@ export function toWindowsPath(value) {
 
 /**
  * Candidates for the Git-for-Windows bash executable, in preference order:
- * the GIT_BASH environment variable, the standard install roots, this
- * machine's known install location, then every `bash.exe` found on PATH.
+ * the GIT_BASH environment variable, the standard install roots (Program
+ * Files, Program Files (x86), LOCALAPPDATA), then every `bash.exe` found on
+ * PATH. No machine-specific install locations are hardcoded — a custom Git
+ * install can be supplied via the `shellPath` configuration or the GIT_BASH
+ * environment variable.
  */
 function shellPathCandidates(env) {
   const candidates = [
@@ -74,7 +77,6 @@ function shellPathCandidates(env) {
     env.ProgramFiles === undefined ? undefined : `${env.ProgramFiles}\\Git\\bin\\bash.exe`,
     env['ProgramFiles(x86)'] === undefined ? undefined : `${env['ProgramFiles(x86)']}\\Git\\bin\\bash.exe`,
     env.LOCALAPPDATA === undefined ? undefined : `${env.LOCALAPPDATA}\\Programs\\Git\\bin\\bash.exe`,
-    'D:\\applications\\Git\\bin\\bash.exe',
   ]
   if (typeof env.PATH === 'string' && env.PATH.length > 0) {
     for (const dir of env.PATH.split(';')) {
