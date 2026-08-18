@@ -1,6 +1,9 @@
 # DSH Minimal Plus
 
-两阶段锚定的 DSH 代理预设,在首轮模型请求时只暴露官方 Minimal 精确双工具(持久 bash 与 str_replace_editor),只保留一行 persona,清空运行时上下文并只放行用户的直接消息,锚定 Minimal 推理轨迹;晋升受首块锚定门控(首块包含 we 且无 let me,四步兜底),无工具首轮会在响应后自动晋升,晋升后 wire 切换为 Code Mode(PTC,单一 run_code)并在 persona 追加所选工作区路径,workspace 指令与 skill 目录在晋升后再延迟一步注入。
+## 这是什么？
+
+- 这是一款结合了 `dsh-web-ui` 中的“梁神模式”, `dsh-gitbash-preset`中的“极简模式（Git Bash）”和 `oh-we-need` 的 deepseek-v4-pro 性能提升提示词各优点的预设。
+- 它保留了“梁神模式”中的两阶段锚定，并解决了此模式在Windows系统上工作时无法使用bash的痛点。此外，还将二阶段注入的官方提示词更改为 `oh-we-need` 优化过的性能提升提示词。
 
 ---
 
@@ -22,18 +25,7 @@
 
 ## 前置条件
 
-可用的 `dsh` 安装(已包含本 composition 引用的所有 `@deepseek-ai/dsh-*` 包)
-
-无需额外 `npm install`:`agent.cordis.yml` 中列出的所有包(
-`dsh-persona`, `dsh-terminal`, `dsh-tool-bash-persistent`,
-`dsh-tool-str-replace-editor`, `dsh-tool-fs`, `dsh-tool-fs-search`,
-`dsh-tool-jobs`, `dsh-skill-filesystem`, `dsh-tool-skill`,
-`dsh-tool-goal`, `dsh-plan-mode`, `dsh-compaction-basic`,
-`dsh-compaction-tool-result-pruner`, `dsh-command-compact`,
-`dsh-tool-subagent`, `dsh-tool-subagent-control`,
-`dsh-workflow-worker-thread`, `dsh-tool-workflow`, `dsh-tool-ralph`,
-`dsh-tool-ask-user`, `dsh-tool-todo`, `dsh-tool-web`,
-`dsh-agent-instructions`)均随标准 `dsh` 分发一起提供。
+本 preset 除了 `deepseek-harness` 本体以外无需前置。
 
 ## 安装
 
@@ -73,15 +65,10 @@ await ctx.agentPresets.standingKeyFor('DSH-Minimal-Plus')
 
 # DSH Minimal Plus (English)
 
-A DSH agent preset that wraps the first model request in the **exact Minimal**
-two-tool surface (persistent `bash` + `str_replace_editor`), only keeps a
-one-line persona, empties runtime contexts and only lets direct user messages
-pass through, anchoring the Minimal reasoning trajectory; promotion is gated
-by the first-block anchor gate (first block contains `we` and no `let me`,
-with a four-step fallback); a tool-less first response auto-promotes after
-responding, then the wire switches to Code Mode (PTC, single `run_code`) and
-the selected workspace path is appended to the persona, with workspace
-instructions and skill catalog injected one step after promotion.
+## What is this?
+
+- This is a preset for deepseek-harness that combines the advantages of "Liangshen Mode (梁神模式)" from `dsh-web-ui` , "极简模式（Git Bash）" from `dsh-gitbash-preset` , and performance-boosting prompt from `oh-we-need` .
+- It retains the 2-stage approach adopted by "Liangshen Mode", and addressed the issue where the model cannot use bash on Windows systems. Furthermore, the original, official system prompt that was injected during the 2nd stage is replaced by the prompt provided by `oh-we-need` so as to boost performance.
 
 ---
 
@@ -106,19 +93,7 @@ This preset is distributed under the MIT License — see [LICENSE](./LICENSE).
 
 ## Prerequisites
 
-A working `dsh` install (ships every `@deepseek-ai/dsh-*` package this
-composition references).
-
-No `npm install` is required: every package named in `agent.cordis.yml`
-(`dsh-persona`, `dsh-terminal`, `dsh-tool-bash-persistent`,
-`dsh-tool-str-replace-editor`, `dsh-tool-fs`, `dsh-tool-fs-search`,
-`dsh-tool-jobs`, `dsh-skill-filesystem`, `dsh-tool-skill`,
-`dsh-tool-goal`, `dsh-plan-mode`, `dsh-compaction-basic`,
-`dsh-compaction-tool-result-pruner`, `dsh-command-compact`,
-`dsh-tool-subagent`, `dsh-tool-subagent-control`,
-`dsh-workflow-worker-thread`, `dsh-tool-workflow`, `dsh-tool-ralph`,
-`dsh-tool-ask-user`, `dsh-tool-todo`, `dsh-tool-web`,
-`dsh-agent-instructions`) ships with the standard `dsh` distribution.
+This preset requires no prerequisites except a working `deepseek-harness`.
 
 ## Install
 
