@@ -30,7 +30,7 @@
 ## 前置条件
 
 - `deepseek-harness` 本体
-- **Windows 上需安装 Git for Windows**(提供 `bash.exe`)。`gitbash-executor.mjs` 自动按 `GIT_BASH` 环境变量 → Program Files / Program Files (x86) / LOCALAPPDATA 标准安装根 → PATH 的顺序查找,无需手动配置;若 Git 装在自定义位置,请设置 `GIT_BASH` 环境变量。
+- Windows 上需安装 Git for Windows(提供 `bash.exe`)。`gitbash-executor.mjs` 自动按 `GIT_BASH` 环境变量 → Program Files / Program Files (x86) / LOCALAPPDATA 标准安装根 → PATH 的顺序查找,无需手动配置;若 Git 装在自定义位置,请设置 `GIT_BASH` 环境变量。
 
 ## 安装
 
@@ -106,7 +106,7 @@ This preset is distributed under the MIT License — see [LICENSE](./LICENSE).
 ## Prerequisites
 
 - A working `deepseek-harness` installation
-- **Git for Windows is required on Windows** (provides `bash.exe`).
+- Git for Windows is required on Windows (provides `bash.exe`).
   `gitbash-executor.mjs` auto-discovers it in this order: the `GIT_BASH`
   environment variable → standard install roots (Program Files /
   Program Files (x86) / LOCALAPPDATA) → PATH. No manual configuration is
@@ -159,7 +159,7 @@ expands after the first anchored tool call.
 **本项目直接衍生自以下三个开源库,没有它们就没有本项目:**
 
 - **[dsh-web-ui](https://github.com/zhu1090093659/dsh-web-ui)** — DSH Web GUI 插件全家桶,本项目的 plugin 架构、cordis 配置结构和 DSH 集成模式完全来自此库。本项目本质上是 dsh-web-ui 生态中的一个 preset 包。
-- **[dsh-gitbash-preset](https://github.com/liceses/dsh-gitbash-preset)** — Windows 上 Git Bash 持久化 shell 的实现来源,本 preset 的 bash 工具直接继承自此项目的实现。
+- **[dsh-gitbash-preset](https://github.com/liceses/dsh-gitbash-preset)** — Windows 上 Git Bash 子进程 shell 的实现来源,本 preset 的 bash 工具直接继承自此项目(每次命令执行 `<git bash> -c <command>`,非持久化 PTY shell)。
 - **[oh-we-need](https://github.com/scp3500/oh-we-need)** — DeepSeek V4 特化思维链引导规范,本 preset 二阶段注入的提示词采用了 oh-we-need 优化的性能提升提示词。
 
 本项目的代码、文档和配置均由 AI 生成和整理,但所有创意决策、架构设计和质量保证均由人类协作者主导。
@@ -176,7 +176,7 @@ providing requirement descriptions, design direction, and quality review.
 repositories. Without them, this project would not exist:**
 
 - **[dsh-web-ui](https://github.com/zhu1090093659/dsh-web-ui)** — DSH Web GUI plugin suite. The plugin architecture, cordis configuration structure, and DSH integration patterns of this project come entirely from this repository. This project is essentially a preset package within the dsh-web-ui ecosystem.
-- **[dsh-gitbash-preset](https://github.com/liceses/dsh-gitbash-preset)** — The implementation source of persistent Git Bash shell on Windows. The bash tool of this preset is directly inherited from this project.
+- **[dsh-gitbash-preset](https://github.com/liceses/dsh-gitbash-preset)** — The implementation source of the Git Bash subprocess shell on Windows. The bash tool of this preset is directly inherited from this project (each command runs as `<git bash> -c <command>`; it is not a persistent PTY shell).
 - **[oh-we-need](https://github.com/scp3500/oh-we-need)** — DeepSeek V4 specialized reasoning chain guidance spec. The prompt injected in the second stage of this preset adopts the performance-boosting prompt optimized by oh-we-need.
 
 The code, documentation, and configuration of this project were all generated
