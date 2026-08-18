@@ -1,0 +1,10 @@
+# OS / editor scratch files
+.DS_Store
+Thumbs.db
+desktop.ini
+*~
+*.swp
+*.swo
+
+# Node — defensive (preset has no JS deps, but harmless)
+node_modules/
