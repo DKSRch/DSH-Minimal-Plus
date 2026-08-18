@@ -9,8 +9,10 @@
 
 ## 文件结构
 
-- `agent.cordis.yml` — preset 核心 composition,声明 21 行 plugin
+- `agent.cordis.yml` — preset 核心 composition(全部 plugin 行)
 - `tool-bootstrap.mjs` — 两阶段锚定引导器(本地扩展)
+- `reasoning-style.mjs` — oh-we-need 思维链规则注入(Phase 2 生效)
+- `gitbash-executor.mjs` — Windows Git Bash 子进程 shell 执行器
 - `preset.yml` — 元数据(name/description/order)
 - `NOTICE` — 版权声明
 - `LICENSE` — MIT
@@ -19,13 +21,16 @@
 
 - `agent.cordis.yml` 改编自 DeepSeek Harness 内置 Minimal 与 Standard preset(MIT)
 - `tool-bootstrap.mjs` 来自 [xiaobright/dsh-anchored-standard](https://github.com/xiaobright/dsh-anchored-standard)(MIT),并包含 dsh-liangshen 的两阶段隔离扩展
+- `reasoning-style.mjs` 改编自 [oh-we-need](https://github.com/scp3500/oh-we-need) 的思维链提示词(MIT)
+- `gitbash-executor.mjs` 来自 [dsh-gitbash-preset](https://github.com/liceses/dsh-gitbash-preset)(MIT),并移除机器特定硬编码路径
 - 完整上游归属链见 [NOTICE](./NOTICE)
 
 本 preset 以 MIT 协议分发 — 详见 [LICENSE](./LICENSE)
 
 ## 前置条件
 
-本 preset 除了 `deepseek-harness` 本体以外无需前置。
+- `deepseek-harness` 本体
+- **Windows 上需安装 Git for Windows**(提供 `bash.exe`)。`gitbash-executor.mjs` 自动按 `GIT_BASH` 环境变量 → Program Files / Program Files (x86) / LOCALAPPDATA 标准安装根 → PATH 的顺序查找,无需手动配置;若 Git 装在自定义位置,请设置 `GIT_BASH` 环境变量。
 
 ## 安装
 
@@ -33,12 +38,12 @@
 
 ```sh
 # Linux / macOS 默认根
-git clone https://github.com/DKSRch/DSH-Minimal-Plus.git \
-  "$HOME/.dsh/.agent-presets/DSH-Minimal-Plus"
+git clone https://github.com/DKSRch/dsh-minimal-plus.git \
+  "$HOME/.dsh/.agent-presets/dsh-minimal-plus"
 
 # Windows (PowerShell) 默认根
-git clone https://github.com/DKSRch/DSH-Minimal-Plus.git `
-  "$env:USERPROFILE\.dsh\.agent-presets\DSH-Minimal-Plus"
+git clone https://github.com/DKSRch/dsh-minimal-plus.git `
+  "$env:USERPROFILE\.dsh\.agent-presets\dsh-minimal-plus"
 ```
 
 重启后,preset 会出现在新建会话的预设选择器中。
@@ -48,7 +53,7 @@ git clone https://github.com/DKSRch/DSH-Minimal-Plus.git `
 在任意 session 中执行:
 
 ```js
-await ctx.agentPresets.standingKeyFor('DSH-Minimal-Plus')
+await ctx.agentPresets.standingKeyFor('dsh-minimal-plus')
 ```
 
 此调用会端到端组合 preset 的 plugin 子树,并拒绝以下情况:
@@ -74,8 +79,10 @@ await ctx.agentPresets.standingKeyFor('DSH-Minimal-Plus')
 
 ## Files
 
-- `agent.cordis.yml` — preset composition (21 plugin rows)
+- `agent.cordis.yml` — preset composition (all plugin rows)
 - `tool-bootstrap.mjs` — two-phase anchor bootstrap (local extension)
+- `reasoning-style.mjs` — oh-we-need reasoning rules injection (Phase 2 only)
+- `gitbash-executor.mjs` — Windows Git Bash subprocess shell executor
 - `preset.yml` — metadata (name/description/order)
 - `NOTICE` — copyright notice
 - `LICENSE` — MIT
@@ -87,13 +94,24 @@ await ctx.agentPresets.standingKeyFor('DSH-Minimal-Plus')
 - `tool-bootstrap.mjs` derived from
   [xiaobright/dsh-anchored-standard](https://github.com/xiaobright/dsh-anchored-standard)
   (MIT), with the dsh-liangshen two-phase isolation extension
+- `reasoning-style.mjs` adapted from the
+  [oh-we-need](https://github.com/scp3500/oh-we-need) reasoning prompt (MIT)
+- `gitbash-executor.mjs` from
+  [dsh-gitbash-preset](https://github.com/liceses/dsh-gitbash-preset) (MIT),
+  with machine-specific hardcoded paths removed
 - See [NOTICE](./NOTICE) for the full attribution chain
 
 This preset is distributed under the MIT License — see [LICENSE](./LICENSE).
 
 ## Prerequisites
 
-This preset requires no prerequisites except a working `deepseek-harness`.
+- A working `deepseek-harness` installation
+- **Git for Windows is required on Windows** (provides `bash.exe`).
+  `gitbash-executor.mjs` auto-discovers it in this order: the `GIT_BASH`
+  environment variable → standard install roots (Program Files /
+  Program Files (x86) / LOCALAPPDATA) → PATH. No manual configuration is
+  needed; if Git lives in a custom location, set the `GIT_BASH` environment
+  variable.
 
 ## Install
 
@@ -102,12 +120,12 @@ the `dsh-web` process so the roster re-scans:
 
 ```sh
 # default root on Linux / macOS
-git clone https://github.com/DKSRch/DSH-Minimal-Plus.git \
-  "$HOME/.dsh/.agent-presets/DSH-Minimal-Plus"
+git clone https://github.com/DKSRch/dsh-minimal-plus.git \
+  "$HOME/.dsh/.agent-presets/dsh-minimal-plus"
 
 # default root on Windows (PowerShell)
-git clone https://github.com/DKSRch/DSH-Minimal-Plus.git `
-  "$env:USERPROFILE\.dsh\.agent-presets\DSH-Minimal-Plus"
+git clone https://github.com/DKSRch/dsh-minimal-plus.git `
+  "$env:USERPROFILE\.dsh\.agent-presets\dsh-minimal-plus"
 ```
 
 After restart, the preset appears in the new-session picker.
@@ -117,7 +135,7 @@ After restart, the preset appears in the new-session picker.
 In any session, run:
 
 ```js
-await ctx.agentPresets.standingKeyFor('DSH-Minimal-Plus')
+await ctx.agentPresets.standingKeyFor('dsh-minimal-plus')
 ```
 
 This composes the preset's plugin subtree end-to-end and rejects:
